@@ -1,4 +1,4 @@
-const value = document.getElementById('new');
+const newAddButton = document.getElementById('new');
 const dateElement = document.getElementById('date');
 const raceEventElement = document.getElementById('rEvent')
 const raceSession = document.getElementById('rSession');
@@ -7,26 +7,57 @@ const listElement = document.getElementById('list');
 const addEvent = document.getElementById('addEvent')
 const modeButton = document.getElementById('dark');
 const addEventBox = document.getElementById('add-event-box')
-const tableContainer = document.getElementById
-
+const addPlusBtn = document.getElementById('add')
 
 //----Radio Button Value----
 const saveData = [];
-let currentEvent ={}
+let currentEvent = {}
 
 const addOrUpdateRaceEvent = () => {
-    
-    console.log(seriesName.value, dateElement.value)
-
+    const dataArrIndex = saveData.findIndex((item) => item === currentTask.id);
     //----Date Value-----
     let vArr = dateElement.value.split('-');
     let monthWord = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let m = vArr[1] - 1;
     date = monthWord[m] + ' ' + vArr[2]
     year = vArr[0];
-    //----Event Value----
-    sessionEventValue = raceSession.value
-    raceEventValue = raceEventElement.value
+
+    const raceEventObj = {
+        series: seriesName.value,
+        date: date,
+        year: year,
+        location: raceEventElement.value,
+        session: raceSession.value,
+        id: 0,
+        watched: false
+    }
+    console.log(vArr, m, date, raceEventObj)
+    updateRaceEventTable()
+}
+const updateRaceEventTable = () => {
+
+    saveData.forEach(
+
+
+        ({ series, date, year, location, rs, wv }) => {
+            (listElement.innerHTML += `
+    <tr>
+        <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png">
+        </td>
+        <td>${date}</td>
+        <td>${year}</td>
+        <td>${location}</td>
+        <td>${rs}</td>
+        <td><input type="checkbox" class="checkbox" id="0May07MiamiRace" onclick="watched()"></td>
+        <td><button type="button" onclick='editTask(this)'>Edit</button></td>
+    </tr>
+ `);
+        }
+    )
+};
+/*
+//----Event Value----
+
 
     console.log(seriesName.value, date, year, raceEventValue, sessionEventValue)
 
@@ -68,41 +99,32 @@ const addOrUpdateRaceEvent = () => {
 
     raceEvent(seriesName.value, date, year, raceEventValue, sessionEventValue)
     addButton.innerHTML = '+'
+*/
 
-
+const reset = () => {
+    titleInput.value = '';
+    dateInput.value = '';
+    descriptionInput.value = '';
+    addEvent.classList.toggle('hidden');
+    currentTask = {};
 }
+addPlusBtn.addEventListener('click', () => addEvent.classList.toggle('hidden'))
 
-value.addEventListener('click', ()=>{
-    addOrUpdateRaceEvent();
-    addEventBox.showModal();
-});
+// value.addEventListener('click', () => {
+//     addOrUpdateRaceEvent();
+//     addEventBox.showModal();
+// });
 
 //----Add new row with input info----
-const raceEvent = (series, eventDate, year, raceValue, rs, wv) => {
-    listElement.innerHTML +=
-        `
-    <tr>
-        <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png">
-        </td>
-        <td>${eventDate}</td>
-        <td>${year}</td>
-        <td>${raceValue}</td>
-        <td>${rs}</td>
-        <td><input type="checkbox" class="checkbox" id="0May07MiamiRace" onclick="watched()"></td>
-    </tr>
- `;
 
- modalLabels()
-
-};
 
 //----Dark Mode----
 
-
+/*
 const darkMode = () => {
     let element = document.body;
     element.classList.toggle("dark-mode");
-   
+
     if (modeButton.innerHTML == 'Light') {
         modeButton.innerHTML = 'Dark'
         modeButton.setAttribute('style', 'color:white')
@@ -312,8 +334,23 @@ e.setAttribute('class', 'btn')
 e.setAttribute('id', 'new')
 e.innerHTML = 'Add'
 */
-document.getElementById('add').addEventListener('click', modalLabels);
-
+// const addButton = document.getElementById('add')
+addPlusBtn.addEventListener('click', modalLabels);
+function modalLabels() {
+    if (show == 0) {
+        show = 1
+        addPlusBtn.innerHTML = '&ndash;'
+    } else if (show == 1) {
+        show = 0
+        addPlusBtn.textContent = '+'
+    }
+    console.log('ModalLabels')
+}
+addEvent.addEventListener("submit", (e) => {
+    console.log('newAddButton')
+    e.preventDefault();
+    addOrUpdateRaceEvent();
+});
 //----Values----
 
 let watchedValue;
@@ -321,20 +358,7 @@ let show = 0
 
 
 
-const addButton = document.getElementById('add')
 
-function modalLabels() {
-    if (show == 0) {
-        addEvent.setAttribute('style', 'display:block')
-        show = 1
-        addButton.innerHTML = '&ndash;'
-    } else if (show == 1) {
-        addEvent.setAttribute('style', 'display:none')
-        show = 0
-        addButton.innerHTML = '+'
-    }
-
-}
 
 //----Delete Event----
 
@@ -361,7 +385,7 @@ let jDGS = [...savedJsonData]
 
 if (savedJSONData) {
     let parsedJsonData = JSON.parse(savedJSONData)
-    console.log(parsedJsonData)
+    // console.log(parsedJsonData)
     jsonDataG = parsedJsonData
     for (let i = 0; i < parsedJsonData.length; i++) {
         console.log(parsedJsonData[i])

@@ -25,7 +25,7 @@
 			<div id="add">+</div>
 			<h1>Race Highlights</h1>
 		</div>
-			<form method="dialog" id="addEvent">
+			<form class="hidden" id="addEvent">
 				<select class="new" id="select">
 					<option id="0" value="0" for="Formula 1">F1</option>
 					<option id="1" value="1" for="F2">F2</option>
@@ -36,10 +36,10 @@
 					<option id="6" value="6" for="IMSA">IMSA</option>
 					<option id="7" value="7" for="SuperCars">SuperCars</option>
 				</select><br>
-				<input class="new" required type="date" id="date"><br>
-				<input class="new" required type="text" id="rEvent" placeholder="Event">
-				<input class="new" required type="text" id="rSession" placeholder="Session"><br>
-				<div class="new" id="new">Add</div>
+				<input class="new"  type="date" id="date"><br>
+				<input class="new"  type="text" id="rEvent" placeholder="Event">
+				<input class="new" type="text" id="rSession" placeholder="Session"><br>
+				<button class="new" id="add-submit-btn" type="submit">Add</button>
 			</form>
 
 		<div class="table-container" id="table-container">
@@ -52,6 +52,7 @@
 						<th>Event</th>
 						<th>Session</th>
 						<th>Watched</th>
+						<th></th>
 					</tr>
 
 					<tr>
@@ -62,6 +63,7 @@
 						<td>Miami</td>
 						<td>Race</td>
 						<td><input type="checkbox" class="checkbox" id="0May07MiamiRace" onclick="watched()"></td>
+						<td><button type="button" onclick='editTask(this)'>Edit</button></td>
 					</tr>
 					<tr>
 						<td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png">
@@ -70,7 +72,8 @@
 						<td>2023</td>
 						<td>Monaco</td>
 						<td>Quali</td>
-						<td><input type="checkbox" class="checkbox" id="0May07MiamiRace" onclick="watched()"></td>
+						<td><input type="checkbox" class="checkbox" id="0May07MonacoRace" onclick="watched()"></td>
+						<td><button type="button" onclick='editTask(this)'>Edit</button></td>
 					</tr>
 				</tbody>
 			</table>
