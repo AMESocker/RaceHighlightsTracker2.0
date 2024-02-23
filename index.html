@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Titillium+Web&display=swap"
+		rel="stylesheet" />
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="style.css">
+	<title>Race Highlights</title>
+</head>
+<style>
+
+</style>
+
+<body>
+	<main class="app">
+		<div id="title">
+			<div id="dark">Dark</div>
+			<div id="add">+</div>
+			<h1>Race Highlights</h1>
+		</div>
+			<form method="dialog" id="addEvent">
+				<select class="new" id="select">
+					<option id="0" value="0" for="Formula 1">F1</option>
+					<option id="1" value="1" for="F2">F2</option>
+					<option id="2" value="2" for="F3">F3</option>
+					<option id="3" value="3" for="Formula-E">Formula-E</option>
+					<option id="4" value="4" for="IndyCar">IndyCar</option>
+					<option id="5" value="5" for="WRC">WRC</option>
+					<option id="6" value="6" for="IMSA">IMSA</option>
+					<option id="7" value="7" for="SuperCars">SuperCars</option>
+				</select><br>
+				<input class="new" required type="date" id="date"><br>
+				<input class="new" required type="text" id="rEvent" placeholder="Event">
+				<input class="new" required type="text" id="rSession" placeholder="Session"><br>
+				<div class="new" id="new">Add</div>
+			</form>
+
+		<div class="table-container" id="table-container">
+			<table>
+				<tbody id="list">
+					<tr>
+						<th id="series">Series</th>
+						<th>Date</th>
+						<th>Year</th>
+						<th>Event</th>
+						<th>Session</th>
+						<th>Watched</th>
+					</tr>
+
+					<tr>
+						<td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png">
+						</td>
+						<td>May 07</td>
+						<td>2023</td>
+						<td>Miami</td>
+						<td>Race</td>
+						<td><input type="checkbox" class="checkbox" id="0May07MiamiRace" onclick="watched()"></td>
+					</tr>
+					<tr>
+						<td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png">
+						</td>
+						<td>May 07</td>
+						<td>2023</td>
+						<td>Monaco</td>
+						<td>Quali</td>
+						<td><input type="checkbox" class="checkbox" id="0May07MiamiRace" onclick="watched()"></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		<!-- modal -->
+		<!-- <section class="modal hidden">
+            <div class="flex">
+                <h3>New</h3>
+              <button class="btn-close">⨉</button>
+            </div>
+        <form id="modal"> -->
+
+		<!-- <input id="F1"type="radio">
+                    <label for="F1">Formula 1</label>
+                    <br> -->
+
+		<!-- <button class="btn">Add</button> -->
+
+		<!-- </form>
+    </section>
+          
+          <div class="overlay hidden"></div> -->
+
+		<!-- modal -->
+	</main>
+	<script src="script.js"></script>
+
+
+
+</body>
+
+</html>
