@@ -6,16 +6,17 @@ const addOrUpdateRaceEvent = () => {
 	let m = vArr[1] - 1;
 	let day = vArr[2]
 	let month = vArr[1]
-	let date = monthWord[m] + ' ' + vArr[2]
-	let year = vArr[0];
+	let date = `${monthWord[m]}${vArr[2]}`;
+	let year = vArr[0]
+	
 
 	const raceEventObj = {
 		series: seriesName.value,
-		date: date,
+		date: `${date}`,
 		year: year,
 		location: raceEventElement.value,
 		session: raceSession.value,
-		id: `S${seriesName.value}${raceSession.value}D${day}${month}${year}`,
+		id: `S${seriesName.value}${raceSession.value}D${date}`,
 		watched: false
 	}
 	console.log(raceEventObj)

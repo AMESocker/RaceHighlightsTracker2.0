@@ -19,14 +19,14 @@ body {
   background-color: var(--white);
   /* background-color: aquamarine; */
   color: black;
-  padding:10px;
-  width: 462px;
+  padding:11px;
+  width: 100vw
 }
 main {
-  width: 100%;
-  height: 805px;
+  width: 95vw;
+  height: 95vh;
   /* background-color:grey; */
-  border: 0px solid black;
+  font-size: small;
 }
 .dark-mode {
   background-color: black;
@@ -43,6 +43,7 @@ main {
   margin: 10px 50px 0px 60px;
   padding-inline:0;
   width: 250px;
+  
 }
 #add-submit-btn {
   /* display: inline-block; */
@@ -57,17 +58,21 @@ main {
   border:solid 1px ;
   margin: 10px 50px 8px;
   width:254px;
+  
 }
 
 /* Table */
 .table-container{
-  width:100%;
+  width:90vw;
   margin: auto;
   border-radius: 6px;
   /* border: 1px solid black; */
 }
 table {
   display: flex;
+  
+  flex-direction: row;
+  justify-content:left;
   width: 100%;
 
 }
@@ -76,22 +81,25 @@ tr {
   display: flex;
   text-align:center;
   /* align-items: center; */
-  width: 100%;
-  border-bottom: 2px solid ;
-  padding:0 10px;
-  justify-content: space-between;
+  border-radius:0 6px;
+  border-right: 2px solid;
+  border-top: 2px solid ;
+  padding:0;
+  justify-content:space-evenly;
 }
 th{
   /* border: 1px solid black; */
-  width:70px;
+  width:90px;
   /* display: flex; */
   /* justify-content: space-between; */
+  padding: 0 ;
 }
 td{
-  align-items: center;
+  /* align-items:start; */
   /* border: 1px solid black; */
-  width:70px;
-  text-align:center;
+  width:90px;
+  /* text-align:left; */
+  padding: 0;
 
 }
 /* End Table */
@@ -191,7 +199,7 @@ button {
 
 
 #add {
-  position: absolute;
+  /* position: absolute; */
   left: 380px;
   font-size: 40px;
   font-family: Arial, Helvetica, sans-serif;
@@ -202,7 +210,7 @@ button {
 #dark {
   background-color: black;
   color: white;
-  position: absolute;
+  /* position: absolute; */
   width: 50px;
   height: 20px;
   left: 20px;
@@ -221,6 +229,7 @@ button {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   justify-content: center;
   font-family: "Racing Sans One", cursive;
+  justify-content: space-around;
 }
 
 #list {
