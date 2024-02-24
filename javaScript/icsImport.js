@@ -1,5 +1,5 @@
 //--------ICS Import--------
-/*
+
 // import icsToJson from './icsToJson'
 let icsRaceData = []
 console.log(icsRaceData)
@@ -24,4 +24,3 @@ convert(cal)
 console.log([...icsRaceData])
 console.log(icsRaceData[0])
 // console.log(convert(cal).Array)
-*/

@@ -9,10 +9,46 @@ const modeButton = document.getElementById('dark');
 const addEventBox = document.getElementById('add-event-box')
 const addPlusBtn = document.getElementById('add')
 
+let logo = [
+	{
+		series: 'Formula 1',
+		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png'
+	}, {
+		series: 'F2',
+		image: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Formula_2_logo.svg/330px-Formula_2_logo.svg.png'
+	}, {
+		series: 'F3',
+		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/FIA_F3_Championship_logo.png/330px-FIA_F3_Championship_logo.png'
+	}, {
+		series: 'Formula-E',
+		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Formula_E_Wordmark_full_colour.png/1199px-Formula_E_Wordmark_full_colour.png'
+	}, {
+		series: 'IndyCar',
+		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/IndyCar_Series_textlogo.svg/659px-IndyCar_Series_textlogo.svg.png?20210511055910'
+	}, {
+		series: 'WRC',
+		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/WRC.svg/405px-WRC.svg.png'
+	}, {
+		series: 'IMSA',
+		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/International_Motor_Sports_Association_logo_%282014-present%29.svg/300px-International_Motor_Sports_Association_logo_%282014-present%29.svg.png'
+	}, {
+		series: 'SuperCars',
+		image: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Supercars_Championship_Logo_2021.png/270px-Supercars_Championship_Logo_2021.png'
+	},
+	// {
+	//     series: 'W2RC',
+	//     image: 'https://upload.wikimedia.org/wikipedia/en/d/d2/World_Rally-Raid_Championship_logo.png'
+	// }, 
+	// {
+	//     series: 'SuperMotoCross',
+	//     image: 'https://www.supermotocross.com/wp-content/uploads/2023/01/SMX-League-Logo.png'
+	// }
+]
 //----Radio Button Value----
 const saveData = JSON.parse(localStorage.getItem("RaceHighlights")) || [];
 let currentEvent = {}
 let show = 0
+console.table(saveData)
 
 const addOrUpdateRaceEvent = () => {
 	const dataArrIndex = saveData.findIndex((item) => item === currentEvent.id);
@@ -20,8 +56,10 @@ const addOrUpdateRaceEvent = () => {
 	let vArr = dateElement.value.split('-');
 	let monthWord = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	let m = vArr[1] - 1;
-	date = monthWord[m] + ' ' + vArr[2]
-	year = vArr[0];
+	let day = vArr[2]
+	let month = vArr[1]
+	let date = monthWord[m] + ' ' + vArr[2]
+	let year = vArr[0];
 
 	const raceEventObj = {
 		series: seriesName.value,
@@ -29,16 +67,16 @@ const addOrUpdateRaceEvent = () => {
 		year: year,
 		location: raceEventElement.value,
 		session: raceSession.value,
-		id: 0,
+		id: `S${seriesName.value}${raceSession.value}D${day}${month}${year}`,
 		watched: false
 	}
 	console.log(raceEventObj)
 	if (dataArrIndex === -1) {
-    saveData.unshift(raceEventObj); //?E
-  }else{
-    saveData[dataArrIndex] = raceEventObj;
-  }
-	localStorage.setItem('RaceHighlights',JSON.stringify(saveData))
+		saveData.unshift(raceEventObj); //?E
+	} else {
+		saveData[dataArrIndex] = raceEventObj;
+	}
+	localStorage.setItem('RaceHighlights', JSON.stringify(saveData))
 	updateRaceEventTable()
 	plusMinusBtn()
 	addEvent.classList.toggle('hidden');
@@ -47,71 +85,25 @@ const addOrUpdateRaceEvent = () => {
 const updateRaceEventTable = () => {
 	listElement.innerHTML = '';
 	saveData.forEach(
-		({ series, date, year, location, session, wv }) => {
+		({ series, date, year, location, session, id, watched }) => {
 			(listElement.innerHTML += `
     <tr>
-        <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png">
+        <td><img src="${logo[series].image}">
         </td>
         <td>${date}</td>
         <td>${year}</td>
         <td>${location}</td>
         <td>${session}</td>
-        <td><input type="checkbox" class="checkbox" id="0May07MiamiRace" onclick="watched()"></td>
-        <td><button type="button" onclick='editTask(this)'>Edit</button></td>
+        <td><input type="button" value=" " class="watched-${watched}" id="${id}" onclick="watched(saveData)"></td>
+        <td><input type="button" onclick='editTask(this)' value="Edit"></td>
     </tr>
  `);
+
 		}
 	)
+console.table(saveData)
 	reset()
-
-
 };
-
-/*
-//----Event Value----
-
-
-		console.log(seriesName.value, date, year, raceEventValue, sessionEventValue)
-
-		if (jsonDataAll.length !== 0) {
-
-				for (let j = 0; j < jsonData.length; j++) {
-						console.log(jsonData[j])
-
-						jsonData = {
-								series: value[i].id,
-								date: date,
-								location: rEvent,
-								session: sEvent,
-								id: j + 1,
-								watched: false
-						}
-						jsonDataAll.push(jsonData)
-
-						console.log(jsonData)
-				}
-		} else {
-
-				jsonData = {
-						series: seriesName.value,
-						date: date,
-						year: year,
-						location: raceEventValue,
-						session: sessionEventValue,
-						id: 0,
-						watched: false
-				}
-		}
-
-		console.log(jsonData)
-		saveData = JSON.stringify(jsonData)
-		jsonDataAll.push(saveData)
-		console.log(saveData)
-		localStorage.setItem("JSON Race Event", saveData)
-
-		raceEvent(seriesName.value, date, year, raceEventValue, sessionEventValue)
-		addButton.innerHTML = '+'
-*/
 
 const reset = () => {
 	dateElement.value = '';
@@ -120,8 +112,8 @@ const reset = () => {
 
 	currentEvent = {};
 }
-if(saveData.length){
-  updateRaceEventTable()
+if (saveData.length) {
+	updateRaceEventTable()
 }
 
 function plusMinusBtn() {
@@ -135,6 +127,16 @@ function plusMinusBtn() {
 	console.log('ModalLabels')
 }
 
+
+function watched(saveData) {
+	const checkbox = document.getElementsByClassName('checkbox');
+	for (let i = 0; i < saveData.length; i++) {
+		saveData[i].watched = saveData[i].watched === false? true : false;
+
+	}
+	localStorage.setItem('RaceHighlights', JSON.stringify(saveData))
+	updateRaceEventTable()
+}
 addPlusBtn.addEventListener('click', () => addEvent.classList.toggle('hidden'))
 
 // value.addEventListener('click', () => {
@@ -163,15 +165,15 @@ const darkMode = () => {
 }
 modeButton.addEventListener('click', darkMode)
 
-//----ICS to JSON----
-/*
+*/
 
-"author": "Connor Wilson <me@cwlsn.com>",
-"license": "MIT",
-"repository": {
-	"type": "git",
-	"url": "https://github.com/cwlsn/ics-to-json.git"
-}
+//----ICS to JSON----
+// "author": "Connor Wilson <me@cwlsn.com>",
+// "license": "MIT",
+// "repository": {
+// 	"type": "git",
+// 	"url": "https://github.com/cwlsn/ics-to-json.git"
+// }
 const NEW_LINE = /\r\n|\n|\r/;
 
 const EVENT = "VEVENT";
@@ -256,7 +258,20 @@ const icsToJson = icsData => {
 	}
 	return array;
 };
+const convert = async (fileLocation) => {
+	const icsRes = await fetch(fileLocation)
+	const icsData = await icsRes.text()
+	// Convert
+	const data = icsToJson(icsData)
+	data.forEach((data) => {
+		// console.log(data.startDate,data.summary)
 
+	})
+	console.log(data[0])
+
+	return data
+}
+convert('./MotorsportCalendar2023.0.ics')
 // // export default icsToJson;
 // let cal = './MotorsportCalendar2023.0.ics'
 
@@ -270,97 +285,10 @@ const icsToJson = icsData => {
 // }
 
 // convert(cal)
-*/
 //F1, F2, F3, Formula-E, Indycar, WRC, IMSA, Supercars, World Rally Raid Championship, SuperMotocross 
 
-let logo = [
-	{
-		series: 'Formula 1',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png'
-	}, {
-		series: 'F2',
-		image: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Formula_2_logo.svg/330px-Formula_2_logo.svg.png'
-	}, {
-		series: 'F3',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/FIA_F3_Championship_logo.png/330px-FIA_F3_Championship_logo.png'
-	}, {
-		series: 'Formula-E',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Formula-e-logo-championship_2023.svg/390px-Formula-e-logo-championship_2023.svg.png'
-	}, {
-		series: 'IndyCar',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/IndyCar_Series_textlogo.svg/659px-IndyCar_Series_textlogo.svg.png?20210511055910'
-	}, {
-		series: 'WRC',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/WRC.svg/405px-WRC.svg.png'
-	}, {
-		series: 'IMSA',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/International_Motor_Sports_Association_logo_%282014-present%29.svg/300px-International_Motor_Sports_Association_logo_%282014-present%29.svg.png'
-	}, {
-		series: 'SuperCars',
-		image: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Supercars_Championship_Logo_2021.png/270px-Supercars_Championship_Logo_2021.png'
-	},
-	// {
-	//     series: 'W2RC',
-	//     image: 'https://upload.wikimedia.org/wikipedia/en/d/d2/World_Rally-Raid_Championship_logo.png'
-	// }, 
-	// {
-	//     series: 'SuperMotoCross',
-	//     image: 'https://www.supermotocross.com/wp-content/uploads/2023/01/SMX-League-Logo.png'
-	// }
-]
-//----Dynamic Add Series----
-/*
-const addEvent = document.getElementById('addEvent');
-const d = document.createElement('br');
-const selectEle = document.createElement('select')
-const brEle = document.createElement('br');
-//----Series Selection----
-for (let i = 0; i < logo.length; i++) {
-		// todo: Add select and child option elements
-		// const inputEle = document.createElement('input');
-		const labelEle = document.createElement('option');
-		labelEle.name = 'new'
-		labelEle.id = [i]
-		labelEle.value = [i]
-		labelEle.innerText = logo[i].series
-		addEvent.appendChild(selectEle);
-		selectEle.appendChild(labelEle);
-		selectEle.setAttribute('id','select')
-		labelEle.setAttribute('for', logo[i].series)
-		addEvent.appendChild(brEle);
-}
-addEvent.appendChild(d);
 
-//----add date----
-const dateSelect = document.createElement('input');
-addEvent.appendChild(dateSelect);
-dateSelect.setAttribute('type', 'date');
-dateSelect.setAttribute('id', 'date');
-addEvent.appendChild(document.createElement('br'));
 
-//----add Event----
-const eventForm = document.createElement('input');
-addEvent.appendChild(eventForm);
-eventForm.setAttribute('type','text')
-eventForm.setAttribute('id','rEvent')
-eventForm.setAttribute('placeholder','Event')
-addEvent.appendChild(d)
-
-//----add Session----
-const sessionForm = document.createElement('input');
-addEvent.appendChild(sessionForm);
-sessionForm.setAttribute('type','text')
-sessionForm.setAttribute('id','rSession')
-sessionForm.setAttribute('placeholder','Session')
-addEvent.appendChild(d)
-
-//----add button----
-const e = document.createElement('div');
-addEvent.appendChild(e)
-e.setAttribute('class', 'btn')
-e.setAttribute('id', 'new')
-e.innerHTML = 'Add'
-*/
 // const addButton = document.getElementById('add')
 addPlusBtn.addEventListener('click', plusMinusBtn);
 
@@ -441,22 +369,7 @@ console.log(jDGS);
 
 
 
-function watched() {
-	const l = document.getElementsByClassName('checkbox');
-	//     let thisRow = saveData.splice(this.id, 1);
-	//     // console.log(saveData.split('-'))
-	for (let i = 0; i < jsonDataG.length; i++) {
-		jsonDataG[i].watched = l[i].checked
-		eWatched[i] = l[i].checked
-		// console.log(l[i].checked)
 
-		// saveData = saveData[i]+ '-' +eWatched[i];
-	}
-	// console.table(JSON.stringify(jsonDataG))
-	saveData = JSON.stringify(jsonDataG)
-	console.log(saveData)
-	localStorage.setItem("JSON Race Event", saveData)
-}
 /*
 let seriesSelector = document.getElementById('series').addEventListener('click', () => { sortSeries() })
 console.log(savedJSONData)

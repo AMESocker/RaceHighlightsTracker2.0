@@ -147,7 +147,17 @@ button {
   border: none;
   font-weight: 600;
 }
-
+.watched-false{
+  border: 1px solid;
+  border-radius: 50%;
+  width:16px
+}
+.watched-true{
+  border: 1px solid;
+  border-radius: 50%;
+  width:16px;
+  background-color:green;
+}
 .hidden {
   display: none;
 }
