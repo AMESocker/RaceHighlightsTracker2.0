@@ -94,14 +94,14 @@ const updateRaceEventTable = () => {
         <td>${year}</td>
         <td>${location}</td>
         <td>${session}</td>
-        <td><input type="button" value=" " class="watched-${watched}" id="${id}" onclick="watched(saveData)"></td>
+        <td  id=${id}><input type="button" value=" " class="watched-${watched}"  onclick="watched(this)"></td>
         <td><input type="button" onclick='editTask(this)' value="Edit"></td>
     </tr>
  `);
 
 		}
 	)
-console.table(saveData)
+	// console.table(saveData)
 	reset()
 };
 
@@ -128,12 +128,20 @@ function plusMinusBtn() {
 }
 
 
-function watched(saveData) {
-	const checkbox = document.getElementsByClassName('checkbox');
-	for (let i = 0; i < saveData.length; i++) {
-		saveData[i].watched = saveData[i].watched === false? true : false;
+function watched(buttonEl) {
+	console.log(buttonEl.parentElement.id)
+	const dataArrIndex = saveData.findIndex(
+		(item) => item.id === buttonEl.parentElement.id
+	);
+	currentEvent = saveData[dataArrIndex];
+	// console.table(dataArrIndex)
+	console.table(currentEvent)
 
-	}
+	currentEvent.watched = currentEvent.watched === false ? true : false;
+	console.log(currentEvent.watched)
+	// for (let i = 0; i < saveData.length; i++) {
+	// }
+	console.table(saveData)
 	localStorage.setItem('RaceHighlights', JSON.stringify(saveData))
 	updateRaceEventTable()
 }
