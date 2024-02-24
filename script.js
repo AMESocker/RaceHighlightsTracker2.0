@@ -1,4 +1,5 @@
 
+
 const deleteTask = (buttonEl)=>{
   const dataArrIndex = saveData.findIndex(
     (item)=>item.id === buttonEl.parentElement.id
@@ -232,3 +233,8 @@ addEvent.addEventListener("submit", (e) => {
 //----Values----
 
 let watchedValue;
+console.log(Date.now())
+const now = new Date;
+const onejan = new Date(now.getFullYear(), 0, 1);
+const week = Math.floor((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
+console.log('Week:',week)

@@ -1,3 +1,8 @@
+const saveData = JSON.parse(localStorage.getItem("RaceHighlights")) || [];
+let currentEvent = {}
+let show = 0
+console.table(saveData)
+
 const addOrUpdateRaceEvent = () => {
 	const dataArrIndex = saveData.findIndex((item) => item === currentEvent.id);
 	//----Date Value-----
@@ -6,7 +11,7 @@ const addOrUpdateRaceEvent = () => {
 	let m = vArr[1] - 1;
 	let day = vArr[2]
 	let month = vArr[1]
-	let date = `${monthWord[m]}${vArr[2]}`;
+	let date = `${monthWord[m]}${vArr[2]}` ;
 	let year = vArr[0]
 	
 
@@ -30,7 +35,3 @@ const addOrUpdateRaceEvent = () => {
 	plusMinusBtn()
 	addEvent.classList.toggle('hidden');
 }
-const saveData = JSON.parse(localStorage.getItem("RaceHighlights")) || [];
-let currentEvent = {}
-let show = 0
-console.table(saveData)
