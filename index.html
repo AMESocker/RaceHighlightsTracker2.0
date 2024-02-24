@@ -36,15 +36,15 @@
 					<option id="6" value="6" for="IMSA">IMSA</option>
 					<option id="7" value="7" for="SuperCars">SuperCars</option>
 				</select><br>
-				<input class="new"  type="date" id="date"><br>
-				<input class="new"  type="text" id="rEvent" placeholder="Event">
-				<input class="new" type="text" id="rSession" placeholder="Session"><br>
+				<input class="new" required type="date" id="date"><br>
+				<input class="new" required type="text" id="rEvent" placeholder="Event">
+				<input class="new" required type="text" id="rSession" placeholder="Session"><br>
 				<button class="new" id="add-submit-btn" type="submit">Add</button>
 			</form>
 
 		<div class="table-container" id="table-container">
-			<table>
-				<tbody id="list">
+			<table id="list">
+				<thead >
 					<tr>
 						<th id="series">Series</th>
 						<th>Date</th>
@@ -54,8 +54,10 @@
 						<th>Watched</th>
 						<th></th>
 					</tr>
-
-					<tr>
+				</thead>
+				
+				<tbody id="list-data">
+					<!-- <tr>
 						<td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/420px-F1.svg.png">
 						</td>
 						<td>May 07</td>
@@ -74,7 +76,7 @@
 						<td>Quali</td>
 						<td><input type="checkbox" class="checkbox" id="0May07MonacoRace" onclick="watched()"></td>
 						<td><button type="button" onclick='editTask(this)'>Edit</button></td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 
